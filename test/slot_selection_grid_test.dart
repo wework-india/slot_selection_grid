@@ -102,9 +102,9 @@ void main() {
   });
 
   // ---------------------------------------------------------------------------
-  // SlotPicker widget
+  // SlotSelectionGrid widget
   // ---------------------------------------------------------------------------
-  group('SlotPicker', () {
+  group('SlotSelectionGrid', () {
     testWidgets('renders without error with minimal required params',
         (tester) async {
       await tester.pumpWidget(
@@ -113,7 +113,7 @@ void main() {
             body: SizedBox(
               height: 500,
               width: 400,
-              child: SlotPicker(
+              child: SlotSelectionGrid(
                 dates: [DateTime(2026, 3, 30)],
                 timeSlots: [TimeSlot.fromTime(9, 0)],
                 slotStates: const {},
@@ -123,7 +123,7 @@ void main() {
         ),
       );
       await tester.pumpAndSettle();
-      expect(find.byType(SlotPicker), findsOneWidget);
+      expect(find.byType(SlotSelectionGrid), findsOneWidget);
     });
 
     testWidgets('loading skeleton renders when dates and timeSlots are empty',
@@ -134,7 +134,7 @@ void main() {
             body: SizedBox(
               height: 500,
               width: 400,
-              child: SlotPicker(
+              child: SlotSelectionGrid(
                 dates: [],
                 timeSlots: [],
                 slotStates: {},
@@ -146,7 +146,7 @@ void main() {
         ),
       );
       await tester.pumpAndSettle();
-      expect(find.byType(SlotPicker), findsOneWidget);
+      expect(find.byType(SlotSelectionGrid), findsOneWidget);
       // Skeleton renders SlotCell widgets (unavailable state)
       expect(find.byType(SlotCell), findsWidgets);
     });
@@ -168,7 +168,7 @@ void main() {
             body: SizedBox(
               height: 500,
               width: 400,
-              child: SlotPicker(
+              child: SlotSelectionGrid(
                 dates: [day],
                 timeSlots: [slot],
                 slotStates: states,
@@ -202,11 +202,11 @@ void main() {
             body: SizedBox(
               height: 500,
               width: 400,
-              child: SlotPicker(
+              child: SlotSelectionGrid(
                 dates: [day],
                 timeSlots: [slot],
                 slotStates: {key: SlotState.selected()},
-                theme: const SlotPickerThemeData(
+                theme: const SlotSelectionGridThemeData(
                   cellStyle: SlotCellStyle(
                     selectedBackgroundColor: Color(0xFFFF0000),
                   ),
@@ -239,7 +239,7 @@ void main() {
             body: SizedBox(
               height: 500,
               width: 400,
-              child: SlotPicker(
+              child: SlotSelectionGrid(
                 dates: [day],
                 timeSlots: [slot],
                 slotStates: {key: SlotState.unavailable(reason: 'Booked')},

@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
 import '../models/slot_state.dart';
-import '../theme/slot_picker_theme.dart';
+import '../theme/slot_selection_grid_theme.dart';
 
-/// A single cell in the [SlotPicker] grid.
+/// A single cell in the [SlotSelectionGrid] grid.
 ///
 /// Renders a square widget whose appearance depends on [state]:
 /// - [UnselectedSlotState] — white background with an add (+) icon.
 /// - [SelectedSlotState] — colored background with a checkmark.
 /// - [UnavailableSlotState] — striped background via [StripePainter]; taps disabled.
 ///
-/// Colors and icon sizes are read from the ambient [SlotPickerTheme] unless
-/// overridden by [style]. [SlotPicker] uses [SlotCell] as its default cell
+/// Colors and icon sizes are read from the ambient [SlotSelectionGridTheme] unless
+/// overridden by [style]. [SlotSelectionGrid] uses [SlotCell] as its default cell
 /// renderer; swap it out with the `build*SlotCell` builder callbacks when you
 /// need a custom look.
 class SlotCell extends StatelessWidget {
@@ -35,12 +35,12 @@ class SlotCell extends StatelessWidget {
   final double size;
 
   /// Per-cell style override. When `null`, the style is resolved from the
-  /// nearest [SlotPickerTheme] ancestor.
+  /// nearest [SlotSelectionGridTheme] ancestor.
   final SlotCellStyle? style;
 
   @override
   Widget build(BuildContext context) {
-    final s = style ?? SlotPickerTheme.of(context).cellStyle;
+    final s = style ?? SlotSelectionGridTheme.of(context).cellStyle;
 
     return GestureDetector(
       onTap: state is UnavailableSlotState ? null : onTap,
@@ -76,19 +76,19 @@ class SlotCell extends StatelessWidget {
   Widget _buildContent(SlotCellStyle s) {
     return switch (state) {
       SelectedSlotState() => Icon(
-        Icons.check,
-        color: s.selectedIconColor,
-        size: s.iconSize,
-      ),
+          Icons.check,
+          color: s.selectedIconColor,
+          size: s.iconSize,
+        ),
       UnavailableSlotState() => CustomPaint(
-        painter: StripePainter(stripeColor: s.stripeColor),
-        child: const SizedBox.expand(),
-      ),
+          painter: StripePainter(stripeColor: s.stripeColor),
+          child: const SizedBox.expand(),
+        ),
       UnselectedSlotState() => Icon(
-        Icons.add,
-        color: s.unselectedIconColor,
-        size: s.iconSize,
-      ),
+          Icons.add,
+          color: s.unselectedIconColor,
+          size: s.iconSize,
+        ),
     };
   }
 }

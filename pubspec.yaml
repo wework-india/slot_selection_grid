@@ -21,9 +21,9 @@ platforms:
   linux:
 
 screenshots:
-  - description: 'SlotPicker grid with date headers, time labels, and skeleton loading state'
+  - description: 'SlotSelectionGrid with date headers, time labels, and skeleton loading state'
     path: screenshots/skeleton.png
-  - description: 'SlotPicker with scroll minimap overlay visible during pan'
+  - description: 'SlotSelectionGrid with scroll minimap overlay visible during pan'
     path: screenshots/minimap.png
 
 environment:

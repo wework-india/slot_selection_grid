@@ -4,7 +4,7 @@ import 'slot_state.dart';
 
 /// A time range within a single day, defined by a [startTime] and [endTime].
 ///
-/// Used as the row descriptor in the [SlotPicker] grid. Two [TimeSlot]s are
+/// Used as the row descriptor in the [SlotSelectionGrid] grid. Two [TimeSlot]s are
 /// equal when both [startTime] and [endTime] match.
 ///
 /// ```dart
@@ -87,7 +87,7 @@ class TimeSlot {
 /// A resolved grid cell: a calendar [date], a [timeSlot] row, and the current
 /// [SlotState].
 ///
-/// Primarily used internally by [SlotPicker]; consumers typically interact with
+/// Primarily used internally by [SlotSelectionGrid]; consumers typically interact with
 /// [DateAndTimeSlot] (the map key) and [SlotState] (the map value) instead.
 class SlotData {
   /// Creates a [SlotData] with the given [date], [timeSlot], and [state].
@@ -119,10 +119,10 @@ class SlotData {
 
   @override
   int get hashCode => Object.hash(
-    date.year,
-    date.month,
-    date.day,
-    timeSlot.startTime.hour,
-    timeSlot.startTime.minute,
-  );
+        date.year,
+        date.month,
+        date.day,
+        timeSlot.startTime.hour,
+        timeSlot.startTime.minute,
+      );
 }

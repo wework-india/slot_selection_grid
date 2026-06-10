@@ -1,6 +1,6 @@
 import 'time_slot.dart';
 
-/// Composite key for the [SlotPicker.slotStates] map — a calendar day plus a
+/// Composite key for the [SlotSelectionGrid.slotStates] map — a calendar day plus a
 /// [TimeSlot].
 ///
 /// **Equality uses the calendar date only** (year, month, day). The time-of-day
@@ -39,8 +39,7 @@ class DateAndTimeSlot {
           timeSlot == other.timeSlot;
 
   @override
-  int get hashCode =>
-      Object.hash(
+  int get hashCode => Object.hash(
         date.year,
         date.month,
         date.day,

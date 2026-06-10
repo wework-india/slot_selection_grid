@@ -6,7 +6,7 @@ import '../models/date_and_time_slot.dart';
 import '../models/minimap_configuration.dart';
 import '../models/slot_state.dart';
 import '../models/time_slot.dart';
-import '../theme/slot_picker_theme.dart';
+import '../theme/slot_selection_grid_theme.dart';
 import 'slot_cell.dart';
 
 /// A scrollable grid of time slots across multiple dates.
@@ -24,7 +24,7 @@ import 'slot_cell.dart';
 /// ## Minimal usage
 ///
 /// ```dart
-/// SlotPicker(
+/// SlotSelectionGrid(
 ///   dates: myWeek,           // List<DateTime>
 ///   timeSlots: mySlots,      // List<TimeSlot>
 ///   slotStates: stateBySlot, // Map<DateAndTimeSlot, SlotState>
@@ -40,8 +40,8 @@ import 'slot_cell.dart';
 ///
 /// > **Tip:** Set [timeColumnWidth] wider than [cellSize] so time-range labels
 /// > have room to render without clipping.
-class SlotPicker extends StatefulWidget {
-  const SlotPicker({
+class SlotSelectionGrid extends StatefulWidget {
+  const SlotSelectionGrid({
     super.key,
     required this.dates,
     required this.timeSlots,
@@ -165,7 +165,7 @@ class SlotPicker extends StatefulWidget {
   /// [SlotCellStyle] fields are ignored for that state.
   ///
   /// Defaults to [SlotCellStyle.defaults] when omitted.
-  final SlotPickerThemeData? theme;
+  final SlotSelectionGridThemeData? theme;
 
   /// Number of placeholder days when [loading] is true and [dates] is empty.
   final int loadingSkeletonDayCount;
@@ -181,10 +181,10 @@ class SlotPicker extends StatefulWidget {
   final MinimapConfiguration minimapConfiguration;
 
   @override
-  State<SlotPicker> createState() => _SlotPickerState();
+  State<SlotSelectionGrid> createState() => _SlotSelectionGridState();
 }
 
-class _SlotPickerState extends State<SlotPicker> {
+class _SlotSelectionGridState extends State<SlotSelectionGrid> {
   double get _timeColumnWidth => widget.timeColumnWidth ?? widget.cellSize;
 
   final ScrollController _horizontalScrollController = ScrollController();
@@ -306,7 +306,7 @@ class _SlotPickerState extends State<SlotPicker> {
   }
 
   @override
-  void didUpdateWidget(SlotPicker oldWidget) {
+  void didUpdateWidget(SlotSelectionGrid oldWidget) {
     super.didUpdateWidget(oldWidget);
     // Update shadows when widget rebuilds with new data
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -645,9 +645,9 @@ class _SlotPickerState extends State<SlotPicker> {
 
   @override
   Widget build(BuildContext context) {
-    final themeData = widget.theme ?? const SlotPickerThemeData();
+    final themeData = widget.theme ?? const SlotSelectionGridThemeData();
 
-    return SlotPickerTheme(
+    return SlotSelectionGridTheme(
       data: themeData,
       child: AnimatedSwitcher(
         duration: _animationDuration,

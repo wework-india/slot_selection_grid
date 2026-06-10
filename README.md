@@ -8,6 +8,20 @@ A Flutter plugin that renders a **scrollable grid of time slots across multiple 
 
 ---
 
+## Why slot_selection_grid?
+
+Building booking and scheduling interfaces in Flutter often requires:
+
+- Synchronizing horizontal and vertical scrolling
+- Sticky date headers
+- Time labels
+- Slot state management
+- Skeleton loading states
+
+slot_selection_grid provides these out of the box while remaining highly customizable.
+
+---
+
 ## Features
 
 - **Multi-day columns** with synchronized horizontal & vertical scroll (header + time-label column stay locked).
@@ -16,7 +30,7 @@ A Flutter plugin that renders a **scrollable grid of time slots across multiple 
 - **Scroll minimap** — a floating dot-grid thumbnail that appears during pan and fades out automatically.
 - **Momentum scrolling** — physics-based deceleration on pan release.
 - **Edge-scroll shadows** — animated inner shadows hint at overflowing content.
-- **Default Material styling** via `SlotPickerThemeData` *or* fully custom cell builders per state.
+- **Default Material styling** via `SlotSelectionGridThemeData` *or* fully custom cell builders per state.
 
 ---
 
@@ -37,10 +51,10 @@ import 'package:slot_selection_grid/slot_selection_grid.dart';
 
 ---
 
-## Quick Start
+## Getting Started
 
 ```dart
-SlotPicker(
+SlotSelectionGrid(
   dates: myWeek,           // List<DateTime>
   timeSlots: mySlots,      // List<TimeSlot>
   slotStates: stateBySlot, // Map<DateAndTimeSlot, SlotState>
@@ -65,7 +79,7 @@ SlotPicker(
 
 ## API Reference
 
-### `SlotPicker`
+### `SlotSelectionGrid`
 
 #### Required parameters
 
@@ -116,7 +130,7 @@ SlotPicker(
 
 | Parameter          | Type                   | Default                 | Description                                                 |
 | ------------------ | ---------------------- | ----------------------- | ----------------------------------------------------------- |
-| `theme`            | `SlotPickerThemeData?` | `SlotPickerThemeData()` | Colors and icon sizes for the default `SlotCell` rendering. |
+| `theme`            | `SlotSelectionGridThemeData?` | `SlotSelectionGridThemeData()` | Colors and icon sizes for the default `SlotCell` rendering. |
 | `headerColor`      | `Color?`               | Material card default   | Background color of the sticky date-header card.            |
 | `innerShadowColor` | `Color?`               | `Colors.black @ 15%`    | Color of the animated edge-scroll shadows.                  |
 
@@ -147,7 +161,7 @@ SlotPicker(
 A floating scroll-position thumbnail that fades in while the user pans and fades out automatically.
 
 ```dart
-SlotPicker(
+SlotSelectionGrid(
   minimapConfiguration: const MinimapConfiguration(
     enabled: true,
     maxDimension: 72.0,
@@ -176,13 +190,13 @@ SlotPicker(
 
 ---
 
-### `SlotPickerThemeData` & `SlotCellStyle`
+### `SlotSelectionGridThemeData` & `SlotCellStyle`
 
 Controls the appearance of the default `SlotCell` when no custom cell builders are supplied.
 
 ```dart
-SlotPicker(
-  theme: const SlotPickerThemeData(
+SlotSelectionGrid(
+  theme: const SlotSelectionGridThemeData(
     cellStyle: SlotCellStyle(
       selectedBackgroundColor: Color(0xFF1976D2),
       selectedBorderColor: Color(0xFF1976D2),
@@ -193,7 +207,7 @@ SlotPicker(
 )
 ```
 
-`**SlotPickerThemeData**`
+`**SlotSelectionGridThemeData**`
 
 
 | Parameter   | Type            | Default                  |
@@ -284,7 +298,7 @@ stateBySlot[key] = SlotState.selected();
 ### Skeleton loading
 
 ```dart
-SlotPicker(
+SlotSelectionGrid(
   dates: const [],
   timeSlots: const [],
   slotStates: const {},
@@ -299,7 +313,7 @@ SlotPicker(
 ### Custom cell builders per state
 
 ```dart
-SlotPicker(
+SlotSelectionGrid(
   // ...
   buildSelectedSlotCell: (slot, isLoading) => Container(
     color: Colors.blue,
@@ -315,7 +329,7 @@ SlotPicker(
 ### Disable the minimap
 
 ```dart
-SlotPicker(
+SlotSelectionGrid(
   minimapConfiguration: const MinimapConfiguration(enabled: false),
   // ...
 )

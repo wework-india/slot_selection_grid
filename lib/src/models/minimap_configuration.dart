@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// Configuration for the scroll-position minimap overlay in [SlotPicker].
+/// Configuration for the scroll-position minimap overlay in [SlotSelectionGrid].
 ///
 /// The minimap is a small floating thumbnail that appears in the bottom-right
 /// corner of the grid while the user is scrolling. It shows a dot-grid
@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 /// [hideDelay].
 ///
 /// ```dart
-/// SlotPicker(
+/// SlotSelectionGrid(
 ///   minimapConfiguration: const MinimapConfiguration(
 ///     enabled: true,
 ///     maxDimension: 80.0,

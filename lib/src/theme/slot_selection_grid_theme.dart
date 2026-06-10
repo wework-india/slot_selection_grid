@@ -3,19 +3,19 @@ import 'package:flutter/material.dart';
 /// Visual styling applied to default [SlotCell] widgets.
 ///
 /// **Only takes effect when the corresponding `build*SlotCell` builder on
-/// [SlotPicker] is `null` for a given state.** If you supply
+/// [SlotSelectionGrid] is `null` for a given state.** If you supply
 /// `buildSelectedSlotCell`, `buildUnselectedSlotCell`, or
 /// `buildUnavailableSlotCell`, those builders fully replace the default
 /// [SlotCell] for their respective state and the related [SlotCellStyle]
 /// fields are ignored.
 ///
-/// Pass an instance via [SlotPickerThemeData.cellStyle], or supply it directly
+/// Pass an instance via [SlotSelectionGridThemeData.cellStyle], or supply it directly
 /// to [SlotCell.style] to override individual cells.
 ///
 /// ```dart
 /// // Only effective when NO custom builder is passed for that state:
-/// SlotPicker(
-///   theme: const SlotPickerThemeData(
+/// SlotSelectionGrid(
+///   theme: const SlotSelectionGridThemeData(
 ///     cellStyle: SlotCellStyle(
 ///       selectedBackgroundColor: Color(0xFF1976D2),
 ///       selectedBorderColor:     Color(0xFF1976D2),
@@ -74,57 +74,59 @@ class SlotCellStyle {
   static const SlotCellStyle defaults = SlotCellStyle();
 }
 
-/// Theme data for [SlotPicker]; controls the appearance of default [SlotCell]
+/// Theme data for [SlotSelectionGrid]; controls the appearance of default [SlotCell]
 /// widgets when no custom cell builders are supplied.
 ///
-/// Resolved by [SlotPickerTheme.of] so all cells in the subtree share the same
+/// Resolved by [SlotSelectionGridTheme.of] so all cells in the subtree share the same
 /// style without requiring each cell to receive it explicitly.
 @immutable
-class SlotPickerThemeData {
-  /// Creates a [SlotPickerThemeData] with the given [cellStyle].
-  const SlotPickerThemeData({this.cellStyle = SlotCellStyle.defaults});
+class SlotSelectionGridThemeData {
+  /// Creates a [SlotSelectionGridThemeData] with the given [cellStyle].
+  const SlotSelectionGridThemeData({this.cellStyle = SlotCellStyle.defaults});
 
   /// Visual style applied to default [SlotCell] rendering.
   final SlotCellStyle cellStyle;
 
   /// Returns a copy with an optionally overridden [cellStyle].
-  SlotPickerThemeData copyWith({SlotCellStyle? cellStyle}) {
-    return SlotPickerThemeData(cellStyle: cellStyle ?? this.cellStyle);
+  SlotSelectionGridThemeData copyWith({SlotCellStyle? cellStyle}) {
+    return SlotSelectionGridThemeData(cellStyle: cellStyle ?? this.cellStyle);
   }
 }
 
-/// [InheritedWidget] that provides [SlotPickerThemeData] to all [SlotCell]
-/// descendants inside the [SlotPicker] subtree.
+/// [InheritedWidget] that provides [SlotSelectionGridThemeData] to all [SlotCell]
+/// descendants inside the [SlotSelectionGrid] subtree.
 ///
-/// Obtain the nearest theme with [SlotPickerTheme.of], which falls back to
-/// [SlotPickerThemeData] defaults when no ancestor [SlotPickerTheme] is found.
-class SlotPickerTheme extends InheritedWidget {
-  /// Creates a [SlotPickerTheme] that provides [data] to its [child] subtree.
-  const SlotPickerTheme({
+/// Obtain the nearest theme with [SlotSelectionGridTheme.of], which falls back to
+/// [SlotSelectionGridThemeData] defaults when no ancestor [SlotSelectionGridTheme] is found.
+class SlotSelectionGridTheme extends InheritedWidget {
+  /// Creates a [SlotSelectionGridTheme] that provides [data] to its [child] subtree.
+  const SlotSelectionGridTheme({
     super.key,
     required this.data,
     required super.child,
   });
 
   /// The theme data available to all [SlotCell] descendants.
-  final SlotPickerThemeData data;
+  final SlotSelectionGridThemeData data;
 
-  /// Returns the nearest [SlotPickerThemeData] or the default if none is found.
+  /// Returns the nearest [SlotSelectionGridThemeData] or the default if none is found.
   ///
   /// Establishes a dependency so the widget rebuilds when the theme changes.
-  static SlotPickerThemeData of(BuildContext context) {
-    final scope = context
-        .dependOnInheritedWidgetOfExactType<SlotPickerTheme>();
-    return scope?.data ?? const SlotPickerThemeData();
+  static SlotSelectionGridThemeData of(BuildContext context) {
+    final scope =
+        context.dependOnInheritedWidgetOfExactType<SlotSelectionGridTheme>();
+    return scope?.data ?? const SlotSelectionGridThemeData();
   }
 
-  /// Returns the nearest [SlotPickerThemeData] or `null` if no ancestor
-  /// [SlotPickerTheme] exists. Does not establish a dependency.
-  static SlotPickerThemeData? maybeOf(BuildContext context) {
-    final scope = context.getInheritedWidgetOfExactType<SlotPickerTheme>();
+  /// Returns the nearest [SlotSelectionGridThemeData] or `null` if no ancestor
+  /// [SlotSelectionGridTheme] exists. Does not establish a dependency.
+  static SlotSelectionGridThemeData? maybeOf(BuildContext context) {
+    final scope =
+        context.getInheritedWidgetOfExactType<SlotSelectionGridTheme>();
     return scope?.data;
   }
 
   @override
-  bool updateShouldNotify(SlotPickerTheme oldWidget) => data != oldWidget.data;
+  bool updateShouldNotify(SlotSelectionGridTheme oldWidget) =>
+      data != oldWidget.data;
 }

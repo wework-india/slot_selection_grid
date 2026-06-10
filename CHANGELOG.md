@@ -1,8 +1,8 @@
 ## 0.1.0
 
 - Added optional **`timeColumnWidth`** so the time-label column can be wider than grid **`cellSize`** (fixes cramped range text).
-- Initial pub-oriented release: `SlotPicker`, models, and `SlotCell` as a **plain Flutter package** (removed unused plugin / method-channel scaffold).
-- Added `SlotPickerThemeData` / `SlotCellStyle` for default cell colors and icons.
+- Initial pub-oriented release: `SlotSelectionGrid`, models, and `SlotCell` as a **plain Flutter package** (removed unused plugin / method-channel scaffold).
+- Added `SlotSelectionGridThemeData` / `SlotCellStyle` for default cell colors and icons.
 - **Breaking:** `TimeSlot.formattedStartTime` / `formattedEndTime` / `formattedTimeRange` replaced with `formatStartTime(context)`, `formatEndTime(context)`, and `formatTimeRange(context)` for proper localization.
 - **Breaking:** Removed `SlotSelectionGrid` and platform channel APIs.
 - `DateAndTimeSlot` equality now uses calendar date only (ignores time on `DateTime`).

@@ -3,7 +3,7 @@ import 'package:shimmer/shimmer.dart';
 import 'package:slot_selection_grid/slot_selection_grid.dart';
 
 void main() {
-  runApp(const SlotPickerExampleApp());
+  runApp(const SlotSelectionGridExampleApp());
 }
 
 const _kMonthAbbr = <String>[
@@ -30,8 +30,8 @@ String _weekdayShort(DateTime d) {
 // Params model
 // ---------------------------------------------------------------------------
 
-class _SlotPickerParams {
-  const _SlotPickerParams({
+class _SlotSelectionGridParams {
+  const _SlotSelectionGridParams({
     this.cellSize = 64.0,
     this.timeColumnWidth = 72.0,
     this.showTimeLabels = true,
@@ -51,7 +51,7 @@ class _SlotPickerParams {
   final int endHour;
   final int slotMinutes;
 
-  _SlotPickerParams copyWith({
+  _SlotSelectionGridParams copyWith({
     double? cellSize,
     double? timeColumnWidth,
     bool? showTimeLabels,
@@ -61,7 +61,7 @@ class _SlotPickerParams {
     int? endHour,
     int? slotMinutes,
   }) {
-    return _SlotPickerParams(
+    return _SlotSelectionGridParams(
       cellSize: cellSize ?? this.cellSize,
       timeColumnWidth: timeColumnWidth ?? this.timeColumnWidth,
       showTimeLabels: showTimeLabels ?? this.showTimeLabels,
@@ -78,8 +78,8 @@ class _SlotPickerParams {
 // App
 // ---------------------------------------------------------------------------
 
-class SlotPickerExampleApp extends StatelessWidget {
-  const SlotPickerExampleApp({super.key});
+class SlotSelectionGridExampleApp extends StatelessWidget {
+  const SlotSelectionGridExampleApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +105,7 @@ class SlotPickerExampleApp extends StatelessWidget {
           clipBehavior: Clip.antiAlias,
         ),
       ),
-      home: const SlotPickerDemoPage(),
+      home: const SlotSelectionGridDemoPage(),
     );
   }
 }
@@ -114,15 +114,16 @@ class SlotPickerExampleApp extends StatelessWidget {
 // Demo page
 // ---------------------------------------------------------------------------
 
-class SlotPickerDemoPage extends StatefulWidget {
-  const SlotPickerDemoPage({super.key});
+class SlotSelectionGridDemoPage extends StatefulWidget {
+  const SlotSelectionGridDemoPage({super.key});
 
   @override
-  State<SlotPickerDemoPage> createState() => _SlotPickerDemoPageState();
+  State<SlotSelectionGridDemoPage> createState() =>
+      _SlotSelectionGridDemoPageState();
 }
 
-class _SlotPickerDemoPageState extends State<SlotPickerDemoPage> {
-  _SlotPickerParams _params = const _SlotPickerParams();
+class _SlotSelectionGridDemoPageState extends State<SlotSelectionGridDemoPage> {
+  _SlotSelectionGridParams _params = const _SlotSelectionGridParams();
 
   late List<DateTime> _dates;
   late List<TimeSlot> _timeSlots;
@@ -136,7 +137,7 @@ class _SlotPickerDemoPageState extends State<SlotPickerDemoPage> {
 
   // Rebuilds dates, timeSlots, and slotStates from params.
   // Preserves existing selection state where slots still exist.
-  void _rebuildGrid(_SlotPickerParams p) {
+  void _rebuildGrid(_SlotSelectionGridParams p) {
     final today = DateTime.now();
     final start = DateTime(today.year, today.month, today.day);
 
@@ -236,10 +237,10 @@ class _SlotPickerDemoPageState extends State<SlotPickerDemoPage> {
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(12, 12, 12, 8),
                 child: NotificationListener<ScrollNotification>(
-                  // Absorb scroll notifications so SlotPicker's internal
+                  // Absorb scroll notifications so SlotSelectionGrid's internal
                   // scroll views don't trigger the AppBar's M3 tint.
                   onNotification: (_) => true,
-                  child: SlotPicker(
+                  child: SlotSelectionGrid(
                     dates: _dates,
                     timeSlots: _timeSlots,
                     slotStates: _slotStates,
@@ -483,15 +484,15 @@ class _ShimmerBox extends StatelessWidget {
 class _FiltersSheet extends StatefulWidget {
   const _FiltersSheet({required this.current, required this.onConfirm});
 
-  final _SlotPickerParams current;
-  final void Function(_SlotPickerParams) onConfirm;
+  final _SlotSelectionGridParams current;
+  final void Function(_SlotSelectionGridParams) onConfirm;
 
   @override
   State<_FiltersSheet> createState() => _FiltersSheetState();
 }
 
 class _FiltersSheetState extends State<_FiltersSheet> {
-  late _SlotPickerParams _pending;
+  late _SlotSelectionGridParams _pending;
 
   @override
   void initState() {
