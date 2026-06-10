@@ -1,0 +1,40 @@
+name: slot_selection_grid
+description: >
+  A configurable Flutter grid widget for selecting time slots across multiple
+  dates, with synchronized scrolling, loading placeholders, and custom cell builders.
+version: 0.1.0
+homepage: https://github.com/wework-india/slot_selection_grid
+repository: https://github.com/wework-india/slot_selection_grid
+issue_tracker: https://github.com/wework-india/slot_selection_grid/issues
+
+topics:
+  - widget
+  - calendar
+  - time-picker
+
+platforms:
+  android:
+  ios:
+  web:
+  macos:
+  windows:
+  linux:
+
+screenshots:
+  - description: 'SlotPicker grid with date headers, time labels, and skeleton loading state'
+    path: screenshots/skeleton.png
+  - description: 'SlotPicker with scroll minimap overlay visible during pan'
+    path: screenshots/minimap.png
+
+environment:
+  sdk: '>=3.5.0 <4.0.0'
+  flutter: '>=3.22.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
