@@ -88,7 +88,7 @@ class TimeSlot {
 /// [SlotState].
 ///
 /// Primarily used internally by [SlotSelectionGrid]; consumers typically interact with
-/// [DateAndTimeSlot] (the map key) and [SlotState] (the map value) instead.
+/// [SlotKey] (the map key) and [SlotState] (the map value) instead.
 class SlotData {
   /// Creates a [SlotData] with the given [date], [timeSlot], and [state].
   SlotData({required this.date, required this.timeSlot, required this.state});

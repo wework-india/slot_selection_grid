@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import '../models/date_and_time_slot.dart';
+import '../models/slot_key.dart';
 import '../models/minimap_configuration.dart';
 import '../models/slot_state.dart';
 import '../models/time_slot.dart';
@@ -27,7 +27,7 @@ import 'slot_cell.dart';
 /// SlotSelectionGrid(
 ///   dates: myWeek,           // List<DateTime>
 ///   timeSlots: mySlots,      // List<TimeSlot>
-///   slotStates: stateBySlot, // Map<DateAndTimeSlot, SlotState>
+///   slotStates: stateBySlot, // Map<SlotKey, SlotState>
 ///   onSlotTapped: (slot, newState) {
 ///     setState(() => stateBySlot[slot] = newState);
 ///   },
@@ -76,15 +76,14 @@ class SlotSelectionGrid extends StatefulWidget {
   final List<TimeSlot> timeSlots;
 
   /// Map of slot data keyed by date and time slot
-  final Map<DateAndTimeSlot, SlotState> slotStates;
+  final Map<SlotKey, SlotState> slotStates;
 
   /// Callback when a slot is tapped
-  final void Function(DateAndTimeSlot slot, SlotState newState)? onSlotTapped;
+  final void Function(SlotKey slot, SlotState newState)? onSlotTapped;
 
   /// Callback fired when an [UnavailableSlotState] cell is tapped; receives the
   /// slot key and the [UnavailableSlotState.reason] string.
-  final void Function(DateAndTimeSlot slot, String reason)?
-      onUnavailableSlotTapped;
+  final void Function(SlotKey slot, String reason)? onUnavailableSlotTapped;
 
   /// Size of each slot cell (width and height of grid cells).
   final double cellSize;
@@ -116,7 +115,7 @@ class SlotSelectionGrid extends StatefulWidget {
   /// [SlotCellStyle.selectedBorderColor], and [SlotCellStyle.selectedIconColor]
   /// values in [theme] have **no effect** for that state. Omit this builder
   /// (leave it `null`) if you want [SlotCellStyle] to control the appearance.
-  final Widget Function(DateAndTimeSlot, bool isLoading)? buildSelectedSlotCell;
+  final Widget Function(SlotKey, bool isLoading)? buildSelectedSlotCell;
 
   /// Builder for a fully custom unselected-state cell.
   ///
@@ -125,8 +124,7 @@ class SlotSelectionGrid extends StatefulWidget {
   /// [SlotCellStyle.unselectedBorderColor], and [SlotCellStyle.unselectedIconColor]
   /// values in [theme] have **no effect** for that state. Omit this builder
   /// (leave it `null`) if you want [SlotCellStyle] to control the appearance.
-  final Widget Function(DateAndTimeSlot, bool isLoading)?
-      buildUnselectedSlotCell;
+  final Widget Function(SlotKey, bool isLoading)? buildUnselectedSlotCell;
 
   /// Builder for a fully custom unavailable-state cell.
   ///
@@ -135,8 +133,7 @@ class SlotSelectionGrid extends StatefulWidget {
   /// [SlotCellStyle.unavailableBorderColor], and [SlotCellStyle.stripeColor]
   /// values in [theme] have **no effect** for that state. Omit this builder
   /// (leave it `null`) if you want [SlotCellStyle] to control the appearance.
-  final Widget Function(DateAndTimeSlot, bool isLoading)?
-      buildUnavailableSlotCell;
+  final Widget Function(SlotKey, bool isLoading)? buildUnavailableSlotCell;
 
   /// Widget placed in the top-left origin cell — the intersection of the time
   /// column and the date header row. Commonly used for a timezone label or logo.
@@ -596,8 +593,8 @@ class _SlotSelectionGridState extends State<SlotSelectionGrid> {
     return hScrollable || vScrollable;
   }
 
-  DateAndTimeSlot _getSlotKey(DateTime date, TimeSlot timeSlot) {
-    return DateAndTimeSlot(date: date, timeSlot: timeSlot);
+  SlotKey _getSlotKey(DateTime date, TimeSlot timeSlot) {
+    return SlotKey(date: date, timeSlot: timeSlot);
   }
 
   SlotState _getSlotState(DateTime date, TimeSlot timeSlot) {

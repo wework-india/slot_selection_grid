@@ -9,13 +9,13 @@ import 'time_slot.dart';
 /// logical day as one constructed with `DateTime(year, month, day)`.
 ///
 /// ```dart
-/// final key = DateAndTimeSlot(date: DateTime(2026, 3, 30), timeSlot: slot);
-/// final sameDay = DateAndTimeSlot(date: DateTime(2026, 3, 30, 15, 30), timeSlot: slot);
+/// final key = SlotKey(date: DateTime(2026, 3, 30), timeSlot: slot);
+/// final sameDay = SlotKey(date: DateTime(2026, 3, 30, 15, 30), timeSlot: slot);
 /// assert(key == sameDay); // true — time-of-day is ignored
 /// ```
-class DateAndTimeSlot {
-  /// Creates a [DateAndTimeSlot] from a [date] and a [timeSlot].
-  const DateAndTimeSlot({required this.date, required this.timeSlot});
+class SlotKey {
+  /// Creates a [SlotKey] from a [date] and a [timeSlot].
+  const SlotKey({required this.date, required this.timeSlot});
 
   /// The calendar day. Only year, month, and day are used for equality.
   final DateTime date;
@@ -24,15 +24,15 @@ class DateAndTimeSlot {
   final TimeSlot timeSlot;
 
   /// Convenience factory equivalent to the default constructor.
-  factory DateAndTimeSlot.fromDateTime(DateTime date, TimeSlot timeSlot) {
-    return DateAndTimeSlot(date: date, timeSlot: timeSlot);
+  factory SlotKey.fromDateTime(DateTime date, TimeSlot timeSlot) {
+    return SlotKey(date: date, timeSlot: timeSlot);
   }
 
   /// Calendar date (year/month/day); time-of-day on [date] is ignored for equality.
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is DateAndTimeSlot &&
+      other is SlotKey &&
           date.year == other.date.year &&
           date.month == other.date.month &&
           date.day == other.date.day &&

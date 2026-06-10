@@ -5,7 +5,7 @@
 - Added `SlotSelectionGridThemeData` / `SlotCellStyle` for default cell colors and icons.
 - **Breaking:** `TimeSlot.formattedStartTime` / `formattedEndTime` / `formattedTimeRange` replaced with `formatStartTime(context)`, `formatEndTime(context)`, and `formatTimeRange(context)` for proper localization.
 - **Breaking:** Removed `SlotSelectionGrid` and platform channel APIs.
-- `DateAndTimeSlot` equality now uses calendar date only (ignores time on `DateTime`).
+- `SlotKey` equality now uses calendar date only (ignores time on `DateTime`).
 - Fixed slot state map lookup to use key equality instead of `hashCode`.
 - Fixed loading skeleton using the wrong custom cell builder for unselected cells.
 - Configurable loading skeleton: `loadingSkeletonDayCount`, `loadingPlaceholderTimeSlots`, `loadingUnavailableReason`.

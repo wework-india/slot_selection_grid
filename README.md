@@ -4,7 +4,17 @@
 [Flutter](https://flutter.dev)
 [License: Apache 2.0](LICENSE)
 
-A Flutter plugin that renders a **scrollable grid of time slots across multiple dates** — synchronized bi-directional scrolling, skeleton loading states, a scroll minimap, and fully customisable cell/header builders.
+A Flutter widget for multi-day time-slot selection.
+
+![Slot Selection Grid](screenshots/slot_selection_grid.png)
+
+Perfect for:
+
+- Meeting room booking
+- Workspace reservations
+- Studio scheduling
+- Sports facility booking
+- Appointment scheduling
 
 ---
 
@@ -34,6 +44,14 @@ slot_selection_grid provides these out of the box while remaining highly customi
 
 ---
 
+## Platform Support
+
+| Android | iOS | Web | macOS | Windows | Linux |
+|----------|-----|-----|--------|---------|--------|
+| ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+
+---
+
 ## Installation
 
 ```yaml
@@ -57,7 +75,7 @@ import 'package:slot_selection_grid/slot_selection_grid.dart';
 SlotSelectionGrid(
   dates: myWeek,           // List<DateTime>
   timeSlots: mySlots,      // List<TimeSlot>
-  slotStates: stateBySlot, // Map<DateAndTimeSlot, SlotState>
+  slotStates: stateBySlot, // Map<SlotKey, SlotState>
   onSlotTapped: (slot, newState) {
     setState(() => stateBySlot[slot] = newState);
   },
@@ -88,7 +106,7 @@ SlotSelectionGrid(
 | ------------ | --------------------------------- | ----------------------------------------------------------------------- |
 | `dates`      | `List<DateTime>`                  | Ordered list of calendar days to display as columns.                    |
 | `timeSlots`  | `List<TimeSlot>`                  | Ordered list of time ranges to display as rows.                         |
-| `slotStates` | `Map<DateAndTimeSlot, SlotState>` | State for every cell; missing keys default to `SlotState.unselected()`. |
+| `slotStates` | `Map<SlotKey, SlotState>` | State for every cell; missing keys default to `SlotState.unselected()`. |
 
 
 #### Callbacks
@@ -96,8 +114,8 @@ SlotSelectionGrid(
 
 | Parameter                 | Signature                                                  | Description                                                                   |
 | ------------------------- | ---------------------------------------------------------- | ----------------------------------------------------------------------------- |
-| `onSlotTapped`            | `void Function(DateAndTimeSlot slot, SlotState newState)?` | Fires when an available slot is tapped; receives the toggled state.           |
-| `onUnavailableSlotTapped` | `void Function(DateAndTimeSlot slot, String reason)?`      | Fires when an unavailable slot is tapped; receives the unavailability reason. |
+| `onSlotTapped`            | `void Function(SlotKey slot, SlotState newState)?` | Fires when an available slot is tapped; receives the toggled state.           |
+| `onUnavailableSlotTapped` | `void Function(SlotKey slot, String reason)?`      | Fires when an unavailable slot is tapped; receives the unavailability reason. |
 
 
 #### Layout
@@ -117,9 +135,9 @@ SlotSelectionGrid(
 | -------------------------- | --------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
 | `dateHeaderBuilder`        | `Widget Function(BuildContext, DateTime date, bool isLoading)?` | Custom widget for each date column header. Omit to hide headers.                          |
 | `slotTitleBuilder`         | `Widget Function(BuildContext, TimeSlot slot, bool isLoading)?` | Custom widget for each row in the time-label column.                                      |
-| `buildSelectedSlotCell`    | `Widget Function(DateAndTimeSlot, bool isLoading)?`             | Fully custom cell for selected slots. Falls back to default `SlotCell` when null.         |
-| `buildUnselectedSlotCell`  | `Widget Function(DateAndTimeSlot, bool isLoading)?`             | Fully custom cell for unselected slots.                                                   |
-| `buildUnavailableSlotCell` | `Widget Function(DateAndTimeSlot, bool isLoading)?`             | Fully custom cell for unavailable slots.                                                  |
+| `buildSelectedSlotCell`    | `Widget Function(SlotKey, bool isLoading)?`             | Fully custom cell for selected slots. Falls back to default `SlotCell` when null.         |
+| `buildUnselectedSlotCell`  | `Widget Function(SlotKey, bool isLoading)?`             | Fully custom cell for unselected slots.                                                   |
+| `buildUnavailableSlotCell` | `Widget Function(SlotKey, bool isLoading)?`             | Fully custom cell for unavailable slots.                                                  |
 | `buildOriginSlotCell`      | `Widget Function(BuildContext)?`                                | Widget placed in the top-left origin cell (intersection of time column and header row).   |
 | `titleBuilder`             | `Widget Function(BuildContext)?`                                | Widget rendered above the date headers inside the sticky header card.                     |
 | `dateFormatter`            | `String Function(DateTime)?`                                    | Converts a `DateTime` to a display string (used when no `dateHeaderBuilder` is provided). |
@@ -282,12 +300,12 @@ final longSlot = TimeSlot.fromTime(9, 0, durationMinutes: 60); // 09:00–10:00
 
 ---
 
-### `DateAndTimeSlot`
+### `SlotKey`
 
 Composite key used in `slotStates`. Calendar **day** is used for equality — the time component of the `DateTime` is ignored.
 
 ```dart
-final key = DateAndTimeSlot(date: someDate, timeSlot: someSlot);
+final key = SlotKey(date: someDate, timeSlot: someSlot);
 stateBySlot[key] = SlotState.selected();
 ```
 

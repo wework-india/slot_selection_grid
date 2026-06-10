@@ -4,17 +4,17 @@ import 'package:slot_selection_grid/slot_selection_grid.dart';
 
 void main() {
   // ---------------------------------------------------------------------------
-  // DateAndTimeSlot
+  // SlotKey
   // ---------------------------------------------------------------------------
-  group('DateAndTimeSlot', () {
+  group('SlotKey', () {
     test('map lookup uses calendar day, not time-of-day on DateTime', () {
       final t = TimeSlot.fromTime(9, 0);
-      final key = DateAndTimeSlot(
+      final key = SlotKey(
         date: DateTime(2026, 3, 30, 15, 30),
         timeSlot: t,
       );
-      final map = <DateAndTimeSlot, SlotState>{
-        DateAndTimeSlot(
+      final map = <SlotKey, SlotState>{
+        SlotKey(
           date: DateTime(2026, 3, 30),
           timeSlot: t,
         ): SlotState.selected(),
@@ -24,22 +24,22 @@ void main() {
 
     test('different days are not equal', () {
       final t = TimeSlot.fromTime(9, 0);
-      final a = DateAndTimeSlot(date: DateTime(2026, 3, 30), timeSlot: t);
-      final b = DateAndTimeSlot(date: DateTime(2026, 3, 31), timeSlot: t);
+      final a = SlotKey(date: DateTime(2026, 3, 30), timeSlot: t);
+      final b = SlotKey(date: DateTime(2026, 3, 31), timeSlot: t);
       expect(a == b, isFalse);
     });
 
     test('different time slots on same day are not equal', () {
       final day = DateTime(2026, 3, 30);
-      final a = DateAndTimeSlot(date: day, timeSlot: TimeSlot.fromTime(9, 0));
-      final b = DateAndTimeSlot(date: day, timeSlot: TimeSlot.fromTime(9, 30));
+      final a = SlotKey(date: day, timeSlot: TimeSlot.fromTime(9, 0));
+      final b = SlotKey(date: day, timeSlot: TimeSlot.fromTime(9, 30));
       expect(a == b, isFalse);
     });
 
     test('fromDateTime factory equals default constructor', () {
       final t = TimeSlot.fromTime(10, 0);
-      final a = DateAndTimeSlot(date: DateTime(2026, 1, 1), timeSlot: t);
-      final b = DateAndTimeSlot.fromDateTime(DateTime(2026, 1, 1), t);
+      final a = SlotKey(date: DateTime(2026, 1, 1), timeSlot: t);
+      final b = SlotKey.fromDateTime(DateTime(2026, 1, 1), t);
       expect(a, equals(b));
     });
   });
@@ -154,12 +154,12 @@ void main() {
     testWidgets('tap toggles selection via onSlotTapped', (tester) async {
       final day = DateTime(2026, 3, 30);
       final slot = TimeSlot.fromTime(9, 0);
-      final key = DateAndTimeSlot(date: day, timeSlot: slot);
-      final states = <DateAndTimeSlot, SlotState>{
+      final key = SlotKey(date: day, timeSlot: slot);
+      final states = <SlotKey, SlotState>{
         key: SlotState.unselected(),
       };
 
-      DateAndTimeSlot? lastSlot;
+      SlotKey? lastSlot;
       SlotState? lastState;
 
       await tester.pumpWidget(
@@ -194,7 +194,7 @@ void main() {
     testWidgets('custom theme colors apply to SlotCell', (tester) async {
       final day = DateTime(2026, 3, 30);
       final slot = TimeSlot.fromTime(9, 0);
-      final key = DateAndTimeSlot(date: day, timeSlot: slot);
+      final key = SlotKey(date: day, timeSlot: slot);
 
       await tester.pumpWidget(
         MaterialApp(
@@ -230,7 +230,7 @@ void main() {
     testWidgets('unavailable cell does not fire onSlotTapped', (tester) async {
       final day = DateTime(2026, 3, 30);
       final slot = TimeSlot.fromTime(9, 0);
-      final key = DateAndTimeSlot(date: day, timeSlot: slot);
+      final key = SlotKey(date: day, timeSlot: slot);
       var tapped = false;
 
       await tester.pumpWidget(

@@ -127,7 +127,7 @@ class _SlotSelectionGridDemoPageState extends State<SlotSelectionGridDemoPage> {
 
   late List<DateTime> _dates;
   late List<TimeSlot> _timeSlots;
-  Map<DateAndTimeSlot, SlotState> _slotStates = {};
+  Map<SlotKey, SlotState> _slotStates = {};
 
   @override
   void initState() {
@@ -152,11 +152,11 @@ class _SlotSelectionGridDemoPageState extends State<SlotSelectionGridDemoPage> {
       }
     }
 
-    final newStates = <DateAndTimeSlot, SlotState>{};
+    final newStates = <SlotKey, SlotState>{};
     for (var i = 0; i < newDates.length; i++) {
       final d = newDates[i];
       for (final t in newTimeSlots) {
-        final key = DateAndTimeSlot(date: d, timeSlot: t);
+        final key = SlotKey(date: d, timeSlot: t);
         // Preserve prior selection if the slot existed before.
         if (_slotStates.containsKey(key)) {
           newStates[key] = _slotStates[key]!;
@@ -178,11 +178,11 @@ class _SlotSelectionGridDemoPageState extends State<SlotSelectionGridDemoPage> {
     _params = p;
   }
 
-  void _onSlotTapped(DateAndTimeSlot slot, SlotState newState) {
+  void _onSlotTapped(SlotKey slot, SlotState newState) {
     setState(() => _slotStates[slot] = newState);
   }
 
-  void _onUnavailableTapped(DateAndTimeSlot slot, String reason) {
+  void _onUnavailableTapped(SlotKey slot, String reason) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         behavior: SnackBarBehavior.floating,
@@ -248,7 +248,7 @@ class _SlotSelectionGridDemoPageState extends State<SlotSelectionGridDemoPage> {
                     timeColumnWidth: _params.timeColumnWidth,
                     showTimeLabels: _params.showTimeLabels,
                     loading: _params.loading,
-                    buildSelectedSlotCell: (dateAndTimeslot, isLoading) {
+                    buildSelectedSlotCell: (slotKey, isLoading) {
                       if (isLoading) return const _ShimmerCell();
                       return Container(
                         decoration: BoxDecoration(
@@ -265,7 +265,7 @@ class _SlotSelectionGridDemoPageState extends State<SlotSelectionGridDemoPage> {
                       size: 18,
                       color: Colors.grey.shade500,
                     ),
-                    buildUnselectedSlotCell: (dateAndTimeslot, isLoading) {
+                    buildUnselectedSlotCell: (slotKey, isLoading) {
                       if (isLoading) return const _ShimmerCell();
                       return Container(
                         decoration: BoxDecoration(
@@ -281,7 +281,7 @@ class _SlotSelectionGridDemoPageState extends State<SlotSelectionGridDemoPage> {
                         ),
                       );
                     },
-                    buildUnavailableSlotCell: (dateAndTimeslot, isLoading) {
+                    buildUnavailableSlotCell: (slotKey, isLoading) {
                       if (isLoading) return const _ShimmerCell();
                       return Container(
                         decoration: BoxDecoration(
