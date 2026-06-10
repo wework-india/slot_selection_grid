@@ -2,7 +2,7 @@
 
 [pub.dev](https://pub.dev/packages/slot_selection_grid)
 [Flutter](https://flutter.dev)
-[License: MIT](LICENSE)
+[License: Apache 2.0](LICENSE)
 
 A Flutter plugin that renders a **scrollable grid of time slots across multiple dates** — synchronized bi-directional scrolling, skeleton loading states, a scroll minimap, and fully customisable cell/header builders.
 
@@ -337,4 +337,4 @@ Source and issues: [github.com/wework-india/slot_selection_grid](https://github.
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+Apache 2.0 — see [LICENSE](LICENSE).
