@@ -6,7 +6,7 @@
 
 A Flutter widget for multi-day time-slot selection.
 
-![Slot Selection Grid](screenshots/slot_selection_grid.png)
+![Slot Selection Grid](screenshots/demo.gif)
 
 Perfect for:
 
@@ -15,6 +15,28 @@ Perfect for:
 - Studio scheduling
 - Sports facility booking
 - Appointment scheduling
+
+---
+
+## Feature Highlights
+
+### Scroll Minimap
+
+Quickly understand your position in large scheduling grids with the built-in minimap overlay.
+
+![Minimap](screenshots/minimap.gif)
+
+### Skeleton Loading
+
+Display realistic placeholders while availability data is loading.
+
+![Skeleton Loading](screenshots/skeleton.gif)
+
+### Fully Customizable Cells
+
+Customize the appearance of selected, unselected, and unavailable slots.
+
+![Custom Cells](screenshots/customise.gif)
 
 ---
 
@@ -95,7 +117,37 @@ SlotSelectionGrid(
 
 ---
 
+## State Management
+
+SlotSelectionGrid is a controlled widget.
+
+The widget does not manage slot state internally.
+
+Consumers are responsible for updating slotStates in response to callbacks.
+
+This makes it easy to integrate with:
+
+- setState
+
+- Bloc
+
+- Riverpod
+
+- Provider
+
+---
+
 ## API Reference
+
+At a minimum, SlotSelectionGrid requires:
+
+- dates
+
+- timeSlots
+
+- slotStates
+
+Everything else is optional and allows customization of layout, rendering, loading states, and minimap behavior.
 
 ### `SlotSelectionGrid`
 
