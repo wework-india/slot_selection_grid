@@ -2,7 +2,7 @@
 
 [pub.dev](https://pub.dev/packages/slot_selection_grid)
 [Flutter](https://flutter.dev)
-[License: Apache 2.0](LICENSE)
+[License: MIT](LICENSE)
 
 A Flutter widget for multi-day time-slot selection.
 
@@ -421,4 +421,4 @@ Source and issues: [github.com/wework-india/slot_selection_grid](https://github.
 
 ## License
 
-Apache 2.0 — see [LICENSE](LICENSE).
+MIT — see [LICENSE](LICENSE).
