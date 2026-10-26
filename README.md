@@ -6,7 +6,7 @@
 
 A Flutter widget for multi-day time-slot selection.
 
-![Slot Selection Grid](screenshots/demo.gif)
+![Slot Selection Grid](https://raw.githubusercontent.com/wework-india/slot_selection_grid/v0.2.0/screenshots/demo.gif)
 
 Perfect for:
 
@@ -24,19 +24,19 @@ Perfect for:
 
 Quickly understand your position in large scheduling grids with the built-in minimap overlay.
 
-![Minimap](screenshots/minimap.gif)
+![Minimap](https://raw.githubusercontent.com/wework-india/slot_selection_grid/v0.2.0/screenshots/minimap.gif)
 
 ### Skeleton Loading
 
 Display realistic placeholders while availability data is loading.
 
-![Skeleton Loading](screenshots/skeleton.gif)
+![Skeleton Loading](https://raw.githubusercontent.com/wework-india/slot_selection_grid/v0.2.0/screenshots/skeleton.gif)
 
 ### Fully Customizable Cells
 
 Customize the appearance of selected, unselected, and unavailable slots.
 
-![Custom Cells](screenshots/customise.gif)
+![Custom Cells](https://raw.githubusercontent.com/wework-india/slot_selection_grid/v0.2.0/screenshots/customise.gif)
 
 ---
 

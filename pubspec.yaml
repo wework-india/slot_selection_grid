@@ -2,7 +2,7 @@ name: slot_selection_grid
 description: >
   A configurable Flutter grid widget for selecting time slots across multiple
   dates, with synchronized scrolling, loading placeholders, and custom cell builders.
-version: 0.2.0
+version: 0.2.1
 homepage: https://github.com/wework-india/slot_selection_grid
 repository: https://github.com/wework-india/slot_selection_grid
 issue_tracker: https://github.com/wework-india/slot_selection_grid/issues
