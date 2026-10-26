@@ -20,6 +20,11 @@ import 'package:flutter/material.dart';
 ///
 /// Disable entirely with `MinimapConfiguration(enabled: false)`.
 class MinimapConfiguration {
+  /// Creates a minimap configuration.
+  ///
+  /// All parameters have defaults tuned for a 72px overlay in the
+  /// bottom-right corner that fades out one second after scrolling stops.
+  /// Pass `enabled: false` to suppress the minimap entirely.
   const MinimapConfiguration({
     this.enabled = true,
     this.maxDimension = 72.0,

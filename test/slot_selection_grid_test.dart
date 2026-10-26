@@ -255,5 +255,72 @@ void main() {
 
       expect(tapped, isFalse);
     });
+
+    testWidgets(
+        'unavailable default cell fires onUnavailableSlotTapped with reason',
+        (tester) async {
+      final day = DateTime(2026, 3, 30);
+      final slot = TimeSlot.fromTime(9, 0);
+      final key = SlotKey(date: day, timeSlot: slot);
+      SlotKey? tappedSlot;
+      String? tappedReason;
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: SizedBox(
+              height: 500,
+              width: 400,
+              child: SlotSelectionGrid(
+                dates: [day],
+                timeSlots: [slot],
+                slotStates: {key: SlotState.unavailable(reason: 'Booked')},
+                onUnavailableSlotTapped: (s, r) {
+                  tappedSlot = s;
+                  tappedReason = r;
+                },
+              ),
+            ),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+      await tester.tap(find.byType(SlotCell));
+      await tester.pumpAndSettle();
+
+      expect(tappedSlot, key);
+      expect(tappedReason, 'Booked');
+    });
+
+    testWidgets('loading grid ignores taps', (tester) async {
+      final day = DateTime(2026, 3, 30);
+      final slot = TimeSlot.fromTime(9, 0);
+      final key = SlotKey(date: day, timeSlot: slot);
+      var fired = false;
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: SizedBox(
+              height: 500,
+              width: 400,
+              child: SlotSelectionGrid(
+                dates: [day],
+                timeSlots: [slot],
+                slotStates: {key: SlotState.unavailable(reason: 'Booked')},
+                loading: true,
+                onSlotTapped: (_, __) => fired = true,
+                onUnavailableSlotTapped: (_, __) => fired = true,
+              ),
+            ),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+      await tester.tap(find.byType(SlotCell).first, warnIfMissed: false);
+      await tester.pumpAndSettle();
+
+      expect(fired, isFalse);
+    });
   });
 }

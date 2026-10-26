@@ -1,0 +1,12 @@
+# .pubignore REPLACES .gitignore in this directory, so repeat its rules here
+build/
+pubspec.lock
+*.iml
+.idea/
+.vscode/
+
+# Large demo GIFs — pub.dev renders these from the public repo instead
+screenshots/demo.gif
+screenshots/minimap.gif
+screenshots/customise.gif
+screenshots/skeleton.gif

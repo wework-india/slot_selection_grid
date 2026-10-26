@@ -8,7 +8,7 @@ import '../theme/slot_selection_grid_theme.dart';
 /// Renders a square widget whose appearance depends on [state]:
 /// - [UnselectedSlotState] — white background with an add (+) icon.
 /// - [SelectedSlotState] — colored background with a checkmark.
-/// - [UnavailableSlotState] — striped background via [StripePainter]; taps disabled.
+/// - [UnavailableSlotState] — striped background via [StripePainter].
 ///
 /// Colors and icon sizes are read from the ambient [SlotSelectionGridTheme] unless
 /// overridden by [style]. [SlotSelectionGrid] uses [SlotCell] as its default cell
@@ -27,8 +27,8 @@ class SlotCell extends StatelessWidget {
   /// The current slot state that drives the visual appearance.
   final SlotState state;
 
-  /// Called when the cell is tapped. `null` disables interaction (e.g. when
-  /// [state] is [UnavailableSlotState] or the grid is in loading mode).
+  /// Called when the cell is tapped, in any [state]. `null` disables
+  /// interaction (e.g. while the grid is in loading mode).
   final VoidCallback? onTap;
 
   /// Width and height of the cell in logical pixels. Default: `50.0`.
@@ -43,7 +43,7 @@ class SlotCell extends StatelessWidget {
     final s = style ?? SlotSelectionGridTheme.of(context).cellStyle;
 
     return GestureDetector(
-      onTap: state is UnavailableSlotState ? null : onTap,
+      onTap: onTap,
       child: Container(
         width: size,
         height: size,

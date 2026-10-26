@@ -41,6 +41,14 @@ import 'slot_cell.dart';
 /// > **Tip:** Set [timeColumnWidth] wider than [cellSize] so time-range labels
 /// > have room to render without clipping.
 class SlotSelectionGrid extends StatefulWidget {
+  /// Creates a slot selection grid.
+  ///
+  /// [dates] supplies the columns, [timeSlots] the rows, and [slotStates]
+  /// the state of each cell keyed by [SlotKey]. Cells absent from
+  /// [slotStates] render as [UnselectedSlotState].
+  ///
+  /// The widget is fully controlled: it does not mutate [slotStates]. Update
+  /// it yourself in response to [onSlotTapped] and [onUnavailableSlotTapped].
   const SlotSelectionGrid({
     super.key,
     required this.dates,
@@ -602,22 +610,19 @@ class _SlotSelectionGridState extends State<SlotSelectionGrid> {
     return widget.slotStates[key] ?? SlotState.unselected();
   }
 
+  /// Single entry point for every cell tap. Selected/unselected toggle via
+  /// [SlotSelectionGrid.onSlotTapped]; unavailable fires
+  /// [SlotSelectionGrid.onUnavailableSlotTapped] with its reason.
   void _handleSlotTap(DateTime date, TimeSlot timeSlot) {
     final slot = _getSlotKey(date, timeSlot);
-    final currentState = _getSlotState(date, timeSlot);
-
-    // Toggle between unselected and selected
-    SlotState newState;
-    if (currentState is SelectedSlotState) {
-      newState = SlotState.unselected();
-    } else if (currentState is UnselectedSlotState) {
-      newState = SlotState.selected();
-    } else {
-      // Unavailable slots cannot be toggled
-      return;
+    switch (_getSlotState(date, timeSlot)) {
+      case SelectedSlotState():
+        widget.onSlotTapped?.call(slot, SlotState.unselected());
+      case UnselectedSlotState():
+        widget.onSlotTapped?.call(slot, SlotState.selected());
+      case UnavailableSlotState(:final reason):
+        widget.onUnavailableSlotTapped?.call(slot, reason);
     }
-
-    widget.onSlotTapped?.call(slot, newState);
   }
 
   List<DateTime> _generateDummyDates() {
@@ -793,12 +798,7 @@ class _SlotSelectionGridState extends State<SlotSelectionGrid> {
                 child: GestureDetector(
                   onTap: widget.loading
                       ? null
-                      : state is UnavailableSlotState
-                          ? () => widget.onUnavailableSlotTapped?.call(
-                                slot,
-                                state.reason,
-                              )
-                          : () => _handleSlotTap(date, timeSlot),
+                      : () => _handleSlotTap(date, timeSlot),
                   child: Container(
                     constraints: BoxConstraints(
                       minWidth: widget.cellSize,
@@ -816,7 +816,7 @@ class _SlotSelectionGridState extends State<SlotSelectionGrid> {
               child: SlotCell(
                 state: state,
                 size: widget.cellSize,
-                onTap: state is UnavailableSlotState || widget.loading
+                onTap: widget.loading
                     ? null
                     : () => _handleSlotTap(date, timeSlot),
               ),
@@ -1238,7 +1238,8 @@ class _MiniMapPainter extends CustomPainter {
       ..color = dotColor;
 
     // why: center the dot grid within the canvas so dots aren't clipped at
-    // either edge. drawPoints is faster than per-dot drawCircle calls.
+    // either edge. Per-dot drawCircle is cheap here: at the default 72px
+    // maxDimension and 5px pitch that's at most 14×14 = 196 dots.
     final int cols = (size.width / _dotPitch).floor();
     final int rows = (size.height / _dotPitch).floor();
     final double offsetX = (size.width - (cols - 1) * _dotPitch) / 2;
