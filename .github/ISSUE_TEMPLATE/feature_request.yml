@@ -1,0 +1,38 @@
+name: Feature request
+description: Suggest a capability or API addition
+labels: ["enhancement", "needs-triage"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem are you trying to solve?
+      description: >
+        Describe the use case, not the solution. What are you building, and
+        where does the widget get in your way?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What would you like to see?
+      description: If you have an API shape in mind, sketch it here.
+    validations:
+      required: true
+
+  - type: textarea
+    id: workaround
+    attributes:
+      label: What are you doing instead today?
+      description: >
+        Existing escape hatches include the `build*Cell` builders,
+        `SlotSelectionGridThemeData`, and `SlotCellStyle`. Did any of them
+        get you close?
+
+  - type: checkboxes
+    id: breaking
+    attributes:
+      label: Compatibility
+      options:
+        - label: I believe this can be added without a breaking change
+        - label: This would require a breaking change

@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Question or usage help
+    url: https://github.com/wework-india/slot_selection_grid/discussions
+    about: >
+      For "how do I ...?" questions, please open a discussion rather than an
+      issue. Check the README's API table first.
+  - name: Security vulnerability
+    url: https://github.com/wework-india/slot_selection_grid/security/advisories/new
+    about: >
+      Please report vulnerabilities privately. Do not open a public issue.

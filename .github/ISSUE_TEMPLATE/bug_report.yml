@@ -1,0 +1,78 @@
+name: Bug report
+description: Something in the widget behaves incorrectly
+labels: ["bug", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to file a report. Please fill in as much as
+        you can — a minimal reproduction is by far the most useful thing you
+        can give us.
+
+  - type: input
+    id: package-version
+    attributes:
+      label: Package version
+      description: The `slot_selection_grid` version from your `pubspec.yaml`.
+      placeholder: "0.2.1"
+    validations:
+      required: true
+
+  - type: textarea
+    id: flutter-doctor
+    attributes:
+      label: Output of `flutter doctor -v`
+      render: shell
+    validations:
+      required: true
+
+  - type: dropdown
+    id: platforms
+    attributes:
+      label: Platforms affected
+      multiple: true
+      options:
+        - Android
+        - iOS
+        - Web
+        - macOS
+        - Windows
+        - Linux
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: What actually happened?
+      description: Include a screenshot or screen recording if the problem is visual.
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Minimal reproduction
+      description: >
+        A self-contained widget we can paste into a fresh Flutter app and run.
+        Please trim it to the smallest thing that still shows the problem.
+      render: dart
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I'm on the latest version of the package
+          required: true
+        - label: I searched existing issues and didn't find a duplicate
+          required: true
