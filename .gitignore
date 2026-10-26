@@ -1,8 +1,7 @@
-/**/.DS_Store
 .DS_Store
 .dart_tool/
-build/
-pubspec.lock
+/build/
+/pubspec.lock
 *.iml
-.idea/
-.vscode/
+/.idea/
+/.vscode/
