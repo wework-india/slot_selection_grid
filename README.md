@@ -78,7 +78,7 @@ slot_selection_grid provides these out of the box while remaining highly customi
 
 ```yaml
 dependencies:
-  slot_selection_grid: ^0.1.0
+  slot_selection_grid: ^0.2.1
 ```
 
 ```bash
